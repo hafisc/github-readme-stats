@@ -68,9 +68,9 @@ function calculateRank({
   const THRESHOLDS = [1, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, 100];
   const LEVELS = ["S", "A+", "A", "A-", "B+", "B", "B-", "C+", "C"];
 
-  // Force highest rank - S (top 1%)
-  const level = "S";
-  const percentile = 1;
+  // Force rank - A+ (top 12.5%)
+  const level = "A+";
+  const percentile = 12.5;
 
   return { level, percentile };
 }

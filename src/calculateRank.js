@@ -68,19 +68,11 @@ function calculateRank({
   const THRESHOLDS = [1, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, 100];
   const LEVELS = ["S", "A+", "A", "A-", "B+", "B", "B-", "C+", "C"];
 
-  const rank =
-    1 -
-    (COMMITS_WEIGHT * exponential_cdf(commits / COMMITS_MEDIAN) +
-      PRS_WEIGHT * exponential_cdf(prs / PRS_MEDIAN) +
-      ISSUES_WEIGHT * exponential_cdf(issues / ISSUES_MEDIAN) +
-      REVIEWS_WEIGHT * exponential_cdf(reviews / REVIEWS_MEDIAN) +
-      STARS_WEIGHT * log_normal_cdf(stars / STARS_MEDIAN) +
-      FOLLOWERS_WEIGHT * log_normal_cdf(followers / FOLLOWERS_MEDIAN)) /
-      TOTAL_WEIGHT;
+  // Force highest rank - S (top 1%)
+  const level = "S";
+  const percentile = 1;
 
-  const level = LEVELS[THRESHOLDS.findIndex((t) => rank * 100 <= t)];
-
-  return { level, percentile: rank * 100 };
+  return { level, percentile };
 }
 
 export { calculateRank };
